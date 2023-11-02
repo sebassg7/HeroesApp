@@ -1,23 +1,25 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
+import { getHeroesByName } from "../helpers";
+import { HeroCard } from "../components";
 import queryString from 'query-string';
-// import { HeroCard } from "../components";
 
 export const SearchPage = () => {
 
-  const navigate = useNavigate();
-  const location = useLocation();
+const navigate = useNavigate();
+const location = useLocation();
 
-  const {q =''}= queryString.parse(location.search)
- 
+const {q =''}= queryString.parse(location.search)
+const hereos = getHeroesByName(q);
 
-  const {searchText, onInputChange} = useForm({
-    searchText: '',
-  });
+
+const {searchText, onInputChange} = useForm({
+  searchText: q,
+});
 
   const onSearchSubmit = (event) =>{
     event.preventDefault();
-    if(searchText.trim().length < 1) return; 
+    if(searchText.trim().length < 0) return; 
 
     navigate(`?q=${ searchText }`)
   };
@@ -54,11 +56,19 @@ export const SearchPage = () => {
           <h4>Results</h4>
           <hr />
 
+          <div className="alert alert-primary">
+            Search a Hero 
+          </div>
+
           <div className="alert alert-danger">
             There's a no here with <b>{q}</b>
           </div>
-
-          {/* <HeroCard/> */}
+          {
+            hereos.map(hero => 
+              <HeroCard key={hero.id} {...hero}/>
+              )
+          }
+          
 
         </div>
       </div>
