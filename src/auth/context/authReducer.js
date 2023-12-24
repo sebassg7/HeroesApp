@@ -6,7 +6,7 @@ export const authReducer = ( state={}, action ) => {
             return {
                 ...state,
                 logged: true,
-                name: action.payload,
+                user: action.payload,
             }
             break;
 
@@ -17,6 +17,6 @@ export const authReducer = ( state={}, action ) => {
             break;
     
         default:
-            break;
+            return state;
     }
 };

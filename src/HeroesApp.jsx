@@ -7,7 +7,7 @@ export const HeroesApp = () => {
     <AuthProvider>
 
       <AppRouter/>
-      
+
     </AuthProvider>   
   )
-}
+};
