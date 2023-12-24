@@ -7,9 +7,13 @@ import { AuthContext } from '../../auth/context/AuthContex';
 export const Navbar = () => {
 
     const navigate = useNavigate();
-    const { user } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
+    
 
     const onLogout = () => {
+
+        logout();
+
         navigate('/login', {
             replace: true,
         })
